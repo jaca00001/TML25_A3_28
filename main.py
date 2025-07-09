@@ -17,8 +17,8 @@ os.makedirs("out/plots", exist_ok=True)
 
 if __name__ == "__main__":
 
-    EPOCHS = 25
-    BATCH_SIZE = 128
+    EPOCHS = 10
+    BATCH_SIZE = 256
     
     # Turn the images into tensors and map into the range [0, 1]
     transform = transforms.Compose([

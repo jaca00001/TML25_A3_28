@@ -21,6 +21,9 @@ def train(model, loader, adv=False, clean=None):
     criterion = nn.CrossEntropyLoss()
 
     losses = []
+    
+    # Weight for the adversarial loss if adv is True
+    lambda_ = 0.5  
 
     for _, imgs, labels in tqdm(loader, leave=False):
         imgs = imgs.to(device=device, dtype=torch.float32)
@@ -36,7 +39,7 @@ def train(model, loader, adv=False, clean=None):
             clean_pred = model(imgs)
             adv_pred = model(adv_imgs)
  
-            loss = criterion(clean_pred, labels) + criterion(adv_pred,  labels)
+            loss = criterion(clean_pred, labels) + lambda_ *  criterion(adv_pred,  labels)
         else:
             pred_label = model(imgs)
             loss = criterion(pred_label, labels)
@@ -73,8 +76,6 @@ def evaluate(model, test_loader, epsilon):
     acc = 100. * correct / total
     return acc
 
-
-import matplotlib.pyplot as plt
 
 def plot_loss(train_loss, test_accuracy, filename="out/plots/loss.png"):
     plt.figure(figsize=(10, 5))
