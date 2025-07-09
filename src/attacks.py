@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 
+
 # This function allows various methods to generate adversarial samples.
 def base_attack(model, images, labels, epsilon=None,ll=False,alpha=None,rand=False,iters=1):
     images = images.clone().detach()

@@ -5,15 +5,10 @@ from src.attacks import *
 import requests
 import torch
 import torch.nn as nn
-import os
 from torchvision import models
 import torch
-from torch.utils.data import  DataLoader,random_split
-from torchvision import transforms
 import matplotlib.pyplot as plt
-import numpy as np
-from src.utils import * 
-from src.dataset import *
+
 
 # Trains tge model, can be turned into adversarial training by setting adv=True.
 # Allows to use a clean model to generate adversarial samples

@@ -1,4 +1,3 @@
-import requests
 import torch
 import torch.nn as nn
 import os
@@ -6,11 +5,9 @@ from torchvision import models
 import torch
 from torch.utils.data import  DataLoader,random_split
 from torchvision import transforms
-import matplotlib.pyplot as plt
-import numpy as np
+
 from src.utils import * 
 from src.dataset import *
-
 
 # Enable benchmark mode for faster training
 torch.backends.cudnn.benchmark = True
@@ -29,7 +26,7 @@ if __name__ == "__main__":
     ])
 
     # Load dataset, apply RGB here to reduce time spent in training
-    dataset = torch.load("Train.pt", weights_only=False)
+    dataset = torch.load("data/Train.pt", weights_only=False)
     dataset.transform = transform
     dataset.imgs = [img.convert('RGB') for img in  dataset.imgs]
 
@@ -59,4 +56,3 @@ if __name__ == "__main__":
     # Upload the model to the server
     #upload("out/models/adv_model.pt", model_type)
         
-      
