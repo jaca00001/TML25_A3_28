@@ -1,11 +1,8 @@
-
 import torch
 from torch.utils.data import Dataset
 from typing import Tuple
 
-
-
-# Dataset from Task 1
+# Dataset from Task 1, preprocessing moved out of the class to speed up training
 class TaskDataset(Dataset):
     def __init__(self, transform=None):
 
@@ -25,4 +22,3 @@ class TaskDataset(Dataset):
 
     def __len__(self):
         return len(self.ids)
-
