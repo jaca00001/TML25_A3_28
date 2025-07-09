@@ -2,6 +2,18 @@ from tqdm import tqdm
 import torch
 import torch.nn as nn
 from src.attacks import *
+import requests
+import torch
+import torch.nn as nn
+import os
+from torchvision import models
+import torch
+from torch.utils.data import  DataLoader,random_split
+from torchvision import transforms
+import matplotlib.pyplot as plt
+import numpy as np
+from src.utils import * 
+from src.dataset import *
 
 # Trains tge model, can be turned into adversarial training by setting adv=True.
 # Allows to use a clean model to generate adversarial samples
@@ -80,3 +92,37 @@ def plot_loss(train_loss, test_accuracy, filename="out/plots/loss.png"):
     plt.grid()
     plt.savefig(filename)
     plt.close()  
+    
+    
+def upload(path,model_type):
+    ### Tests ###
+    allowed_models = {
+        "resnet18": models.resnet18,
+        "resnet34": models.resnet34,
+        "resnet50": models.resnet50,
+    }
+    with open(path, "rb") as f:
+        try:
+            model: torch.nn.Module = allowed_models[model_type](weights=None)
+            model.fc = torch.nn.Linear(model.fc.weight.shape[1], 10)
+        except Exception as e:
+            raise Exception(
+                f"Invalid model class, {e=}, only {allowed_models.keys()} are allowed",
+            )
+        try:
+            state_dict = torch.load(f, map_location=torch.device("cpu"),weights_only=False)
+            model.load_state_dict(state_dict, strict=True)
+            model.eval()
+            out = model(torch.randn(1, 3, 32, 32))
+        except Exception as e:
+            raise Exception(f"Invalid model, {e=}")
+
+        assert out.shape == (1, 10), "Invalid output shape"
+
+    TOKEN = "08392413"
+
+    # Send the model to the server, replace the string "TOKEN" with the string of token provided to you
+    response = requests.post("http://34.122.51.94:9090/robustness", files={"file": open(path, "rb")}, headers={"token": TOKEN, "model-name": model_type})
+
+    # Should be 400, the clean accuracy is too low
+    print(response.json())
