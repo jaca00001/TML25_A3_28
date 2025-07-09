@@ -29,6 +29,7 @@ The following Python packages and modules are required to run the scripts:
 - torch
 - torchvision
 - typing
+- torchattacks
 
 ### Custom modules
 - src.attacks

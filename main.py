@@ -54,5 +54,5 @@ if __name__ == "__main__":
     plot_loss(train_loss, test_accuracy, filename="out/plots/adv_loss.png")
 
     # Upload the model to the server
-    #upload("out/models/adv_model.pt", model_type)
+    upload("out/models/adv_model_top.pt", model_type)
         
