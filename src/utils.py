@@ -66,3 +66,17 @@ def evaluate(model, test_loader, epsilon):
     acc = 100. * correct / total
     return acc
 
+
+import matplotlib.pyplot as plt
+
+def plot_loss(train_loss, test_accuracy, filename="out/plots/loss.png"):
+    plt.figure(figsize=(10, 5))
+    plt.plot(train_loss, label='Train Loss')
+    plt.plot(test_accuracy, label='Test Accuracy')
+    plt.xlabel('Epochs')
+    plt.ylabel('Loss / Accuracy')
+    plt.title('Training Loss and Test Accuracy')
+    plt.legend()
+    plt.grid()
+    plt.savefig(filename)
+    plt.close()  

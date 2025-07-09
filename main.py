@@ -56,8 +56,8 @@ if __name__ == "__main__":
         train_loss.append(train(model, train_loader, adv=True))
         test_accuracy.append(evaluate(model, test_loader, epsilon=0))
     torch.save(model.state_dict(), "out/models/adv_model.pt")
+    plot_loss(train_loss, test_accuracy, filename="out/plots/adv_loss.png")
 
-    
 
         
       
