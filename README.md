@@ -16,6 +16,10 @@ attack.py -   In here the different stragtegies to generate adversarial examples
               pgd_attack: wrapper of base_attack, implements pgd 
               r_pgd_attack: wrapper of base_attack, implements pgd with random start
 
+model_for_clean_image - Code to train a model on only clean iamges
+
+model_for_perturbed_image - alternative method to generate and test different advesarial training methods
+
 ## Dependencies
 
 The following Python packages and modules are required to run the scripts:
